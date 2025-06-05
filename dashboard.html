@@ -5,88 +5,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - HealthcareML</title>
     <meta name="description" content="Interactive dashboard for patient readmission risk visualization">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html"><i class="bi bi-activity me-2"></i>HealthcareML</a>
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-activity me-2"></i>HealthcareML
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="dashboard.html" aria-current="page"><i class="bi bi-graph-up me-1"></i>Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="simulator.html"><i class="bi bi-play-fill me-1"></i>Simulator</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html" aria-current="page">
+                            <i class="bi bi-graph-up me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="simulator.html">
+                            <i class="bi bi-play-fill me-1"></i>Test Model
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="models.html">
+                            <i class="bi bi-diagram-3 me-1"></i>Models
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle me-1"></i>About
+                        </a>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center">
                     <div id="theme-toggle" class="theme-toggle me-2" title="Toggle Dark Mode">
                         <i class="bi bi-moon-fill"></i>
                         <span class="sr-only">Toggle Dark Mode</span>
                     </div>
-                    <a href="https://github.com/asarekings/HealthcareML-" class="btn btn-outline-light btn-sm"><i class="bi bi-github me-1"></i>GitHub</a>
+                    <a href="https://github.com/asarekings/HealthcareML-" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-github me-1"></i>GitHub
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
+
     <!-- Main Content -->
     <main class="py-5">
         <div class="container">
             <h1 class="mb-4">Readmission Risk Dashboard</h1>
             <p class="lead">Interactive visualization of patient readmission predictions</p>
-            <!-- Metrics row -->
+            
             <div class="row mb-4">
-                <div class="col-md-3"><div class="card metric-card"><div class="card-body"><div class="metric-value">18.7%</div><div class="metric-label">Overall Readmission Rate</div></div></div></div>
-                <div class="col-md-3"><div class="card metric-card"><div class="card-body"><div class="metric-value">85.2%</div><div class="metric-label">Model Accuracy</div></div></div></div>
-                <div class="col-md-3"><div class="card metric-card"><div class="card-body"><div class="metric-value">0.82</div><div class="metric-label">AUC-ROC</div></div></div></div>
-                <div class="col-md-3"><div class="card metric-card"><div class="card-body"><div class="metric-value">$4.2M</div><div class="metric-label">Potential Annual Savings</div></div></div></div>
-            </div>
-            <!-- Row for charts -->
-            <div class="row mb-4">
-                <!-- Age group chart -->
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="card-title mb-0"><i class="bi bi-bar-chart me-2"></i>Readmission Rate by Age Group</h5>
-                        </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
                         <div class="card-body">
-                            <canvas id="ageChart" height="240"></canvas>
+                            <div class="metric-value">18.7%</div>
+                            <div class="metric-label">Overall Readmission Rate</div>
                         </div>
                     </div>
                 </div>
-                <!-- Model performance chart -->
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="card-title mb-0"><i class="bi bi-graph-up-arrow me-2"></i>Model Performance</h5>
-                        </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
                         <div class="card-body">
-                            <canvas id="modelChart" height="240"></canvas>
+                            <div class="metric-value">85.2%</div>
+                            <div class="metric-label">Model Accuracy</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Feature importance chart -->
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="card-title mb-0"><i class="bi bi-sliders me-2"></i>Feature Importance</h5>
-                        </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
                         <div class="card-body">
-                            <canvas id="featureChart" height="160"></canvas>
+                            <div class="metric-value">0.82</div>
+                            <div class="metric-label">AUC-ROC</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="card-body">
+                            <div class="metric-value">$4.2M</div>
+                            <div class="metric-label">Potential Annual Savings</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Key Risk Factors Table -->
+
             <div class="card mb-4">
-                <div class="card-header bg-primary text-white"><h5 class="card-title mb-0">Key Risk Factors</h5></div>
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Key Risk Factors</h5>
+                </div>
                 <div class="card-body">
                     <p>The following patient characteristics have the highest impact on readmission risk:</p>
                     <div class="table-responsive">
@@ -99,128 +122,122 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>Previous Admissions (&gt;2)</td><td>0.85</td><td>↑ Increases Risk</td></tr>
-                                <tr><td>Length of Stay (&gt;7 days)</td><td>0.78</td><td>↑ Increases Risk</td></tr>
-                                <tr><td>Age (&gt;65)</td><td>0.72</td><td>↑ Increases Risk</td></tr>
-                                <tr><td>Comorbidities (&gt;3)</td><td>0.68</td><td>↑ Increases Risk</td></tr>
-                                <tr><td>Medication Count (&gt;8)</td><td>0.65</td><td>↑ Increases Risk</td></tr>
+                                <tr>
+                                    <td>Previous Admissions (>2)</td>
+                                    <td>0.85</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Length of Stay (>7 days)</td>
+                                    <td>0.78</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Age (>65)</td>
+                                    <td>0.72</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Comorbidities (>3)</td>
+                                    <td>0.68</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Medication Count (>8)</td>
+                                    <td>0.65</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Patient Demographics</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>This section will contain interactive demographic charts.</p>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Interactive charts will be added in the next update.
+                            </div>
+                            <div class="text-center py-3">
+                                <i class="bi bi-pie-chart" style="font-size: 5rem; color: #0d6efd; opacity: 0.2;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Model Performance</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>This section will show performance metrics across different patient subgroups.</p>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Interactive performance metrics will be added in the next update.
+                            </div>
+                            <div class="text-center py-3">
+                                <i class="bi bi-bar-chart" style="font-size: 5rem; color: #0d6efd; opacity: 0.2;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="simulator.html" class="btn btn-primary btn-lg px-4">
+                    <i class="bi bi-play-fill me-2"></i>Test the Model with Your Data
+                </a>
+            </div>
         </div>
     </main>
+
+    <!-- Footer -->
     <footer class="mt-5 py-4 bg-light">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 HealthcareML by <a href="https://github.com/asarekings" class="text-decoration-none">asarekings</a></p>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="bi bi-activity me-2"></i>HealthcareML</h5>
+                    <p class="text-muted">Advanced machine learning for healthcare analytics and readmission prediction.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-decoration-none">Home</a></li>
+                        <li><a href="dashboard.html" class="text-decoration-none">Dashboard</a></li>
+                        <li><a href="simulator.html" class="text-decoration-none">Test Model</a></li>
+                        <li><a href="models.html" class="text-decoration-none">Models</a></li>
+                        <li><a href="about.html" class="text-decoration-none">About</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Connect</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://github.com/asarekings" class="text-decoration-none"><i class="bi bi-github me-1"></i>GitHub</a></li>
+                        <li><a href="mailto:kingstune7@gmail.com" class="text-decoration-none"><i class="bi bi-envelope me-1"></i>Email</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 HealthcareML by <a href="https://github.com/asarekings" class="text-decoration-none">asarekings</a></p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0" id="timestamp">Last Updated: 2025-06-05 15:49:27</p>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
-    <script>
-    // Chart.js charts for dashboard
-    document.addEventListener('DOMContentLoaded', function () {
-        // Age group bar chart
-        const ageChartEl = document.getElementById('ageChart');
-        if (ageChartEl) {
-            new Chart(ageChartEl, {
-                type: 'bar',
-                data: {
-                    labels: ['18-30', '31-45', '46-60', '61-75', '76+'],
-                    datasets: [{
-                        label: 'Readmission Rate (%)',
-                        data: [7.2, 11.5, 16.8, 22.3, 28.7],
-                        backgroundColor: '#0d6efd'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: true, text: 'Readmission Rates by Age Group' }
-                    },
-                    scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Readmission Rate (%)' } },
-                        x: { title: { display: true, text: 'Age Group' } }
-                    }
-                }
-            });
-        }
-        // Model performance radar chart
-        const modelChartEl = document.getElementById('modelChart');
-        if (modelChartEl) {
-            new Chart(modelChartEl, {
-                type: 'radar',
-                data: {
-                    labels: ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'AUC-ROC'],
-                    datasets: [{
-                        label: 'XGBoost',
-                        data: [0.85, 0.78, 0.77, 0.76, 0.88],
-                        borderColor: 'rgba(32, 201, 151, 0.85)',
-                        backgroundColor: 'rgba(32, 201, 151, 0.2)'
-                    }, {
-                        label: 'Random Forest',
-                        data: [0.82, 0.74, 0.73, 0.73, 0.85],
-                        borderColor: 'rgba(13, 110, 253, 0.85)',
-                        backgroundColor: 'rgba(13, 110, 253, 0.2)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'top' },
-                        title: { display: true, text: 'Model Performance' }
-                    },
-                    elements: {
-                        line: { borderWidth: 2 }
-                    },
-                    scales: {
-                        r: {
-                            min: 0.7,
-                            max: 0.9,
-                            ticks: { stepSize: 0.05 }
-                        }
-                    }
-                }
-            });
-        }
-        // Feature importance horizontal bar chart
-        const featureChartEl = document.getElementById('featureChart');
-        if (featureChartEl) {
-            new Chart(featureChartEl, {
-                type: 'bar',
-                data: {
-                    labels: ['Previous Admissions', 'Length of Stay', 'Age', 'Comorbidities', 'Medications', 'ER Visits', 'Diabetes', 'Hypertension'],
-                    datasets: [{
-                        label: 'Feature Importance',
-                        data: [0.25, 0.20, 0.15, 0.15, 0.10, 0.05, 0.03, 0.02],
-                        backgroundColor: [
-                            '#20c997', '#ffc107', '#0d6efd', '#dc3545', 
-                            '#6610f2', '#fd7e14', '#d63384', '#0dcaf0'
-                        ]
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        title: { display: true, text: 'Feature Importance in Prediction Model' }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Importance Score' }
-                        }
-                    }
-                }
-            });
-        }
-    });
-    </script>
 </body>
 </html>

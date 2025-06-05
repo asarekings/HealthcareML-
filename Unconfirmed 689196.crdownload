@@ -1,0 +1,66 @@
+# HealthcareML GitHub Pages Update Script
+# Author: asarekings
+# Date: 2025-06-05 16:00:00
+
+$ErrorActionPreference = "Stop"
+$timestamp = "2025-06-05 15:59:44"
+$username = "asarekings"
+$repoName = "HealthcareML-"
+
+Write-Host "HealthcareML GitHub Pages Updater" -ForegroundColor Cyan
+Write-Host "Current Time: $timestamp" -ForegroundColor Yellow
+Write-Host "User: $username" -ForegroundColor Yellow
+
+# Step 1: Ensure we're on the gh-pages branch
+try {
+    git checkout gh-pages
+    Write-Host "Switched to gh-pages branch" -ForegroundColor Green
+} catch {
+    Write-Host "Error switching to gh-pages branch: $_" -ForegroundColor Red
+    Write-Host "Creating gh-pages branch..." -ForegroundColor Yellow
+    git checkout -b gh-pages
+}
+
+# Step 2: Create necessary directories
+Write-Host "Creating directory structure..." -ForegroundColor Yellow
+$directories = @(
+    "assets/css", 
+    "assets/js", 
+    "assets/img", 
+    "assets/data"
+)
+
+foreach ($dir in $directories) {
+    if (-not (Test-Path -Path $dir)) {
+        New-Item -Path $dir -ItemType Directory -Force | Out-Null
+        Write-Host "Created directory: $dir" -ForegroundColor Green
+    }
+}
+
+# Step 3: Create CSS file
+Write-Host "Creating CSS file..." -ForegroundColor Yellow
+$cssContent = Get-Content -Raw -Path ".\assets\css\style.css"
+Set-Content -Path "assets/css/style.css" -Value $cssContent
+
+# Step 4: Create JavaScript file
+Write-Host "Creating JS file..." -ForegroundColor Yellow
+$jsContent = Get-Content -Raw -Path ".\assets\js\main.js"
+Set-Content -Path "assets/js/main.js" -Value $jsContent
+
+# Step 5: Create index.html
+Write-Host "Creating index.html..." -ForegroundColor Yellow
+$indexHtml = Get-Content -Raw -Path ".\index.html"
+Set-Content -Path "index.html" -Value $indexHtml
+
+# Step 6: Create simulator.html
+Write-Host "Creating simulator.html..." -ForegroundColor Yellow
+$simHtml = Get-Content -Raw -Path ".\simulator.html"
+Set-Content -Path "simulator.html" -Value $simHtml
+
+# Step 7: Create dashboard.html
+Write-Host "Creating dashboard.html..." -ForegroundColor Yellow
+$dashboardHtml = Get-Content -Raw -Path ".\dashboard.html"
+Set-Content -Path "dashboard.html" -Value $dashboardHtml
+
+# Step 8: (Optional) Add additional HTML/JS/CSS/data files as needed
+Write-Host "All core files created." -ForegroundColor Green

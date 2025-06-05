@@ -1,0 +1,141 @@
+// HealthcareML Main JavaScript (detailed interactivity)
+document.addEventListener('DOMContentLoaded', function() {
+    // Theme toggle
+    initThemeToggle();
+    // Navigation highlight
+    initNavigation();
+    // Prediction form interactivity
+    initPredictionForm();
+    // Patient simulator interactivity
+    initPatientSimulator();
+});
+
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+    } else if (prefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        updateThemeIcon('dark');
+    }
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+}
+function updateThemeIcon(theme) {
+    const iconElement = document.querySelector('#theme-toggle i');
+    if (!iconElement) return;
+    if (theme === 'dark') {
+        iconElement.className = 'bi bi-sun-fill';
+        iconElement.setAttribute('title', 'Switch to Light Mode');
+    } else {
+        iconElement.className = 'bi bi-moon-fill';
+        iconElement.setAttribute('title', 'Switch to Dark Mode');
+    }
+}
+function initNavigation() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        } else {
+            link.classList.remove('active');
+            link.removeAttribute('aria-current');
+        }
+    });
+}
+function initPredictionForm() {
+    const form = document.getElementById('prediction-form');
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Get values
+        const age = parseInt(form.querySelector('#patient-age').value) || 0;
+        const prevAdmissions = parseInt(form.querySelector('#prev-admissions').value) || 0;
+        const lengthOfStay = parseInt(form.querySelector('#length-of-stay').value) || 0;
+        const comorbidities = parseInt(form.querySelector('#comorbidities').value) || 0;
+        const medications = parseInt(form.querySelector('#medications').value) || 0;
+        // Simulate risk calculation (simple formula)
+        let score = Math.round((
+            (age / 100) * 0.2 +
+            (prevAdmissions / 5) * 0.25 +
+            (lengthOfStay / 14) * 0.2 +
+            (comorbidities / 5) * 0.2 +
+            (medications / 10) * 0.15
+        ) * 100);
+        score = Math.max(0, Math.min(100, score + Math.floor(Math.random() * 6 - 3))); // add -3~+2 random
+        let riskLevel = "Low", riskClass = "risk-low";
+        if (score >= 60) { riskLevel = "High"; riskClass = "risk-high"; }
+        else if (score >= 30) { riskLevel = "Medium"; riskClass = "risk-medium"; }
+        // Show result
+        const result = document.getElementById('risk-result');
+        result.innerHTML = `
+            <div class="result-score">${score}</div>
+            <div class="result-text mb-2">Risk Level: <span>${riskLevel}</span></div>
+        `;
+        result.className = `risk-result ${riskClass} fade-in`;
+        result.style.display = 'block';
+    });
+    // Optional reset button handler
+    const resetBtn = document.getElementById('reset-form');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            form.reset();
+            document.getElementById('risk-result').style.display = 'none';
+        });
+    }
+}
+function initPatientSimulator() {
+    const btn = document.getElementById('generate-patient');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+        const patients = [
+            { name: "John Smith", age: 72, gender: "Male", prev: 3, los: 8, comorbidities: ["Hypertension", "Diabetes", "COPD"], risk: "high" },
+            { name: "Emma Johnson", age: 45, gender: "Female", prev: 1, los: 4, comorbidities: ["Asthma"], risk: "low" },
+            { name: "Robert Davis", age: 67, gender: "Male", prev: 2, los: 6, comorbidities: ["Hypertension", "Coronary Artery Disease"], risk: "medium" },
+            { name: "Maria Garcia", age: 58, gender: "Female", prev: 2, los: 7, comorbidities: ["Diabetes", "Obesity"], risk: "medium" },
+            { name: "James Wilson", age: 82, gender: "Male", prev: 4, los: 12, comorbidities: ["Heart Failure", "CKD", "Dementia"], risk: "high" }
+        ];
+        const idx = Math.floor(Math.random() * patients.length);
+        const p = patients[idx];
+        let riskClass = (p.risk === "high") ? "risk-high" : (p.risk === "medium") ? "risk-medium" : "risk-low";
+        let avatar = p.gender === "Male"
+            ? `https://randomuser.me/api/portraits/men/${idx * 10 + 1}.jpg`
+            : `https://randomuser.me/api/portraits/women/${idx * 10 + 1}.jpg`;
+        const html = `
+            <div class="card patient-card slide-in">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="${avatar}" alt="${p.name}" class="patient-avatar rounded-circle me-3" width="60" height="60">
+                        <div>
+                            <h5 class="mb-0">${p.name}</h5>
+                            <small>${p.age} years, ${p.gender}</small>
+                        </div>
+                        <span class="ms-auto badge ${riskClass}">${p.risk.toUpperCase()} RISK</span>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Admissions:</strong> ${p.prev}<br>
+                            <strong>LOS:</strong> ${p.los} days
+                        </div>
+                        <div class="col">
+                            <strong>Comorbidities:</strong>
+                            <ul>${p.comorbidities.map(c => `<li>${c}</li>`).join('')}</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('patient-simulator-results').innerHTML = html;
+    });
+}

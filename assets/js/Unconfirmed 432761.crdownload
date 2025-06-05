@@ -1,0 +1,53 @@
+// HealthcareML Main JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('HealthcareML Application Initialized');
+    initThemeToggle();
+    initNavigation();
+    // Add more initializers as needed
+});
+// Theme Toggle Functionality
+function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+    } else if (prefersDark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        updateThemeIcon('dark');
+    }
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    });
+}
+function updateThemeIcon(theme) {
+    const iconElement = document.querySelector('#theme-toggle i');
+    if (!iconElement) return;
+    if (theme === 'dark') {
+        iconElement.className = 'bi bi-sun-fill';
+        iconElement.setAttribute('title', 'Switch to Light Mode');
+    } else {
+        iconElement.className = 'bi bi-moon-fill';
+        iconElement.setAttribute('title', 'Switch to Dark Mode');
+    }
+}
+function initNavigation() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+    navLinks.forEach(function(link) {
+        const href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
+        } else {
+            link.classList.remove('active');
+            link.removeAttribute('aria-current');
+        }
+    });
+}

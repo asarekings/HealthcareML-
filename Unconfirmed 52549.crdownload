@@ -1,0 +1,264 @@
+# HealthcareML GitHub Pages Update Script
+# Author: asarekings
+# Date: 2025-06-05 15:22:28
+
+$ErrorActionPreference = "Stop"
+$timestamp = "2025-06-05 15:22:28"
+$username = "asarekings"
+$repoName = "HealthcareML-"
+
+Write-Host "HealthcareML GitHub Pages Updater" -ForegroundColor Cyan
+Write-Host "Current Time: $timestamp" -ForegroundColor Yellow
+Write-Host "User: $username" -ForegroundColor Yellow
+
+# Step 1: Ensure we're on the gh-pages branch
+try {
+    git checkout gh-pages
+    Write-Host "Switched to gh-pages branch" -ForegroundColor Green
+} catch {
+    Write-Host "Error switching to gh-pages branch: $_" -ForegroundColor Red
+    Write-Host "Creating gh-pages branch..." -ForegroundColor Yellow
+    git checkout -b gh-pages
+}
+
+# Step 2: Create necessary directories
+Write-Host "Creating directory structure..." -ForegroundColor Yellow
+$directories = @(
+    "assets/css", 
+    "assets/js", 
+    "assets/img", 
+    "assets/data"
+)
+
+foreach ($dir in $directories) {
+    if (-not (Test-Path -Path $dir)) {
+        New-Item -Path $dir -ItemType Directory -Force | Out-Null
+        Write-Host "Created directory: $dir" -ForegroundColor Green
+    }
+}
+
+# Step 3: Create CSS file
+Write-Host "Creating CSS file..." -ForegroundColor Yellow
+$cssContent = @'
+/* ... CSS as in your script ... */
+'@
+Set-Content -Path "assets/css/style.css" -Value $cssContent
+
+# Step 4: Create enhanced JavaScript file with prediction simulator
+Write-Host "Creating JavaScript file with prediction functionality..." -ForegroundColor Yellow
+$jsContent = @'
+// ... JavaScript as in your script ...
+'@
+Set-Content -Path "assets/js/main.js" -Value $jsContent
+
+# Step 5: Create index.html (not shown here)
+# ... your index.html code ...
+
+# Step 6: Create simulator.html (not shown here)
+# ... your simulator.html code ...
+
+# Step 7: Create dashboard.html with your specific sections
+Write-Host "Creating dashboard.html..." -ForegroundColor Yellow
+$dashboardHtml = @'
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - HealthcareML</title>
+    <meta name="description" content="Interactive dashboard for patient readmission risk visualization">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-activity me-2"></i>HealthcareML
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="dashboard.html" aria-current="page">
+                            <i class="bi bi-graph-up me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="simulator.html">
+                            <i class="bi bi-play-fill me-1"></i>Test Model
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="models.html">
+                            <i class="bi bi-diagram-3 me-1"></i>Models
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">
+                            <i class="bi bi-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div id="theme-toggle" class="theme-toggle me-2" title="Toggle Dark Mode">
+                        <i class="bi bi-moon-fill"></i>
+                        <span class="sr-only">Toggle Dark Mode</span>
+                    </div>
+                    <a href="https://github.com/USERNAME/REPONAME" class="btn btn-outline-light btn-sm">
+                        <i class="bi bi-github me-1"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <h1 class="mb-4">Readmission Risk Dashboard</h1>
+            <p class="lead">Interactive visualization of patient readmission predictions</p>
+
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="card-body">
+                            <div class="metric-value">18.7%</div>
+                            <div class="metric-label">Overall Readmission Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="card-body">
+                            <div class="metric-value">85.2%</div>
+                            <div class="metric-label">Model Accuracy</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="card-body">
+                            <div class="metric-value">0.82</div>
+                            <div class="metric-label">AUC-ROC</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card metric-card">
+                        <div class="card-body">
+                            <div class="metric-value">$4.2M</div>
+                            <div class="metric-label">Potential Annual Savings</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Key Risk Factors</h5>
+                </div>
+                <div class="card-body">
+                    <p>The following patient characteristics have the highest impact on readmission risk:</p>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Factor</th>
+                                    <th>Importance Score</th>
+                                    <th>Impact Direction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Previous Admissions (&gt;2)</td>
+                                    <td>0.85</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Length of Stay (&gt;7 days)</td>
+                                    <td>0.78</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Age (&gt;65)</td>
+                                    <td>0.72</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Comorbidities (&gt;3)</td>
+                                    <td>0.68</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                                <tr>
+                                    <td>Medication Count (&gt;8)</td>
+                                    <td>0.65</td>
+                                    <td>↑ Increases Risk</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Patient Demographics</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>This section will contain interactive demographic charts.</p>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Interactive charts will be added in the next update.
+                            </div>
+                            <div class="text-center py-3">
+                                <i class="bi bi-pie-chart" style="font-size: 5rem; color: #0d6efd; opacity: 0.2;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Model Performance</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>This section will show performance metrics across different patient subgroups.</p>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Interactive performance metrics will be added in the next update.
+                            </div>
+                            <div class="text-center py-3">
+                                <i class="bi bi-bar-chart" style="font-size: 5rem; color: #0d6efd; opacity: 0.2;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="simulator.html" class="btn btn-primary btn-lg px-4">
+                    <i class="bi bi-play-fill me-2"></i>Test the Model with Your Data
+                </a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+'@
+Set-Content -Path "dashboard.html" -Value $dashboardHtml

@@ -1,0 +1,94 @@
+// ... other code ...
+
+function initPatientSimulator() {
+    const btn = document.getElementById('generate-patient');
+    const resultDiv = document.getElementById('patient-simulator-results');
+    if (!btn || !resultDiv) return;
+
+    btn.addEventListener('click', function() {
+        const patients = [
+            {
+                name: "John Smith",
+                age: 72,
+                gender: "Male",
+                prev: 3,
+                los: 8,
+                comorbidities: ["Hypertension", "Diabetes", "COPD"],
+                risk: "high"
+            },
+            {
+                name: "Emma Johnson",
+                age: 45,
+                gender: "Female",
+                prev: 1,
+                los: 4,
+                comorbidities: ["Asthma"],
+                risk: "low"
+            },
+            {
+                name: "Robert Davis",
+                age: 67,
+                gender: "Male",
+                prev: 2,
+                los: 6,
+                comorbidities: ["Hypertension", "Coronary Artery Disease"],
+                risk: "medium"
+            },
+            {
+                name: "Maria Garcia",
+                age: 58,
+                gender: "Female",
+                prev: 2,
+                los: 7,
+                comorbidities: ["Diabetes", "Obesity"],
+                risk: "medium"
+            },
+            {
+                name: "James Wilson",
+                age: 82,
+                gender: "Male",
+                prev: 4,
+                los: 12,
+                comorbidities: ["Heart Failure", "CKD", "Dementia"],
+                risk: "high"
+            }
+        ];
+        const idx = Math.floor(Math.random() * patients.length);
+        const p = patients[idx];
+        let riskClass = (p.risk === "high") ? "risk-high" : (p.risk === "medium") ? "risk-medium" : "risk-low";
+        let avatar = p.gender === "Male"
+            ? `https://randomuser.me/api/portraits/men/${idx * 10 + 1}.jpg`
+            : `https://randomuser.me/api/portraits/women/${idx * 10 + 1}.jpg`;
+        const html = `
+            <div class="card patient-card slide-in">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="${avatar}" alt="${p.name}" class="patient-avatar rounded-circle me-3" width="60" height="60">
+                        <div>
+                            <h5 class="mb-0">${p.name}</h5>
+                            <small>${p.age} years, ${p.gender}</small>
+                        </div>
+                        <span class="ms-auto badge ${riskClass}">${p.risk.toUpperCase()} RISK</span>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <strong>Admissions:</strong> ${p.prev}<br>
+                            <strong>LOS:</strong> ${p.los} days
+                        </div>
+                        <div class="col">
+                            <strong>Comorbidities:</strong>
+                            <ul>${p.comorbidities.map(c => `<li>${c}</li>`).join('')}</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        resultDiv.innerHTML = html;
+    });
+}
+
+// Ensure this function is called in your DOMContentLoaded block:
+document.addEventListener('DOMContentLoaded', function() {
+    // ... other initializations ...
+    initPatientSimulator();
+});

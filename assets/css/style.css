@@ -1,54 +1,56 @@
 /* HealthcareML Custom Styles */
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --border-color: #dee2e6;
+    --header-bg: #f8f9fa;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-color);
+    background-color: var(--bg-color);
 }
 
-.jumbotron {
-    background-color: #f8f9fa;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 0.3rem;
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-color: var(--border-color);
 }
 
-.card-header {
-    font-weight: 500;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-.navbar-brand {
-    font-weight: bold;
-    letter-spacing: 0.5px;
+.card-header.bg-primary {
+    background-color: var(--primary-color) !important;
 }
 
-footer {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.text-white {
-    color: white !important;
-}
-
-/* Dashboard styles */
 .metric-card {
     text-align: center;
-    transition: transform 0.3s;
-}
-
-.metric-card:hover {
-    transform: translateY(-5px);
 }
 
 .metric-value {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #0d6efd;
+    color: var(--primary-color);
 }
 
 .metric-label {
-    color: #666;
+    color: var(--secondary-color);
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

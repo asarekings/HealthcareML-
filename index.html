@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HealthcareML - Predictive Analytics for Patient Readmissions</title>
+    <meta name="description" content="Advanced machine learning for predicting hospital readmissions and improving healthcare outcomes">
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
-            <a class="navbar-brand" href="#">HealthcareML</a>
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-activity me-2"></i>HealthcareML
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="dashboard.html">Dashboard</a>
@@ -33,65 +41,147 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="display-4">HealthcareML</h1>
-            <p class="lead">Advanced predictive analytics for patient readmission risk</p>
-            <hr class="my-4">
-            <p>Using machine learning to improve healthcare outcomes and resource allocation</p>
-            <a class="btn btn-primary btn-lg" href="dashboard.html" role="button">View Dashboard</a>
-        </div>
-
-        <div class="row mt-5">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Predictive Models</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Our ensemble of machine learning models achieves 85% accuracy in predicting readmission risk.</p>
-                        <a href="models.html" class="btn btn-outline-primary">Explore Models</a>
+    <!-- Hero Section -->
+    <header class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">Predict. Prevent. Improve.</h1>
+                    <p class="lead mb-4">Advanced machine learning algorithms that predict hospital readmissions with 85% accuracy, helping healthcare providers deliver better patient outcomes.</p>
+                    <div class="d-grid gap-2 d-md-flex">
+                        <a href="dashboard.html" class="btn btn-light btn-lg px-4 me-md-2">
+                            <i class="bi bi-graph-up me-2"></i>View Dashboard
+                        </a>
+                        <a href="models.html" class="btn btn-outline-light btn-lg px-4">
+                            <i class="bi bi-diagram-3 me-2"></i>Explore Models
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Interactive Dashboard</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Visualize patient data and explore risk factors through our interactive dashboard.</p>
-                        <a href="dashboard.html" class="btn btn-outline-primary">Open Dashboard</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Research Paper</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Read our methodology and findings in our published research paper.</p>
-                        <a href="#" class="btn btn-outline-primary">Read Paper</a>
-                    </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <i class="bi bi-activity" style="font-size: 10rem; opacity: 0.8;"></i>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <footer class="mt-5 py-3 bg-light">
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <!-- Key Features -->
+            <section class="mb-5">
+                <h2 class="text-center mb-4">Key Features</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto">
+                                    <i class="bi bi-graph-up" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h3 class="card-title h5">Predictive Models</h3>
+                                <p class="card-text">Ensemble of machine learning algorithms achieving 85% accuracy in predicting readmission risk.</p>
+                                <a href="models.html" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-right me-1"></i>Explore Models
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto">
+                                    <i class="bi bi-bar-chart" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h3 class="card-title h5">Interactive Dashboard</h3>
+                                <p class="card-text">Visualize patient data and explore risk factors through our interactive dashboard.</p>
+                                <a href="dashboard.html" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-right me-1"></i>Open Dashboard
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center p-4">
+                                <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-3 mx-auto">
+                                    <i class="bi bi-file-earmark-medical" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <h3 class="card-title h5">Research Paper</h3>
+                                <p class="card-text">Read our methodology and findings in our published research paper.</p>
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-right me-1"></i>Read Paper
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Statistics -->
+            <section class="mb-5">
+                <h2 class="text-center mb-4">Impact Statistics</h2>
+                <div class="row g-4 text-center">
+                    <div class="col-md-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="display-4 fw-bold text-primary mb-2">85%</h3>
+                                <p class="card-text">Prediction Accuracy</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="display-4 fw-bold text-primary mb-2">$4.2M</h3>
+                                <p class="card-text">Potential Annual Savings</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="display-4 fw-bold text-primary mb-2">18.7%</h3>
+                                <p class="card-text">Readmission Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h3 class="display-4 fw-bold text-primary mb-2">32%</h3>
+                                <p class="card-text">Intervention Success</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <section class="text-center py-5 bg-light rounded">
+                <h2 class="mb-3">Ready to improve patient outcomes?</h2>
+                <p class="lead mb-4">Explore our models and see how machine learning can transform healthcare.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="models.html" class="btn btn-primary btn-lg px-4">Explore Models</a>
+                    <a href="about.html" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-5 py-4 bg-light">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <p>&copy; 2025 HealthcareML by <a href="https://github.com/asarekings">asarekings</a></p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p id="timestamp">Last Updated: 2025-06-05 14:06:53 UTC</p>
+                    <p>Last Updated: 2025-06-05 14:43:25</p>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
